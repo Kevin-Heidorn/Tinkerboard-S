@@ -1,0 +1,18 @@
+import os
+
+RELE_GPIO = 17  # Altere para o pino correto
+
+# Configurar GPIO como saída
+os.system(f"echo {RELE_GPIO} > /sys/class/gpio/export")
+os.system(f"echo out > /sys/class/gpio/gpio{RELE_GPIO}/direction")
+
+# Ativar o relé
+os.system(f"echo 1 > /sys/class/gpio/gpio{RELE_GPIO}/value")
+
+input("Pressione Enter para desligar...")
+
+# Desativar o relé
+os.system(f"echo 0 > /sys/class/gpio/gpio{RELE_GPIO}/value")
+
+# Liberar o GPIO
+os.system(f"echo {RELE_GPIO} > /sys/class/gpio/unexport")
